@@ -10,12 +10,20 @@ This information is for **developers**
 * Clone the toolchain-dfu
 * Open the **build.sh** file
 * Change the **VERSION** variable to the new version for the Apio package (For example VERSION=2020.10.6)
-* This also changes the fpga-toolchain nightly to download automatically
 
 ```
 # -- dfu apio package version
-VERSION=2020.11.24
+VERSION=2021.3.16
 ```
+
+* Set the **dfu version** to include in the apio package
+
+```
+# -- fpga-toolchain version to download
+# -- nightly-20210316
+SRC_VER="nightly-20210316"
+```
+
 
 * **Save** the file
 * **Execute** the building script for all the **architectures** you want to create
@@ -37,7 +45,7 @@ bash build linux_x86_64
 
 * The **apio packages** are stored in the local **releases** folder  
 * Create the **new release of toolchain-dfu** in Github in the [FPGAwars/toolchain-dfu](https://github.com/FPGAwars/toolchain-dfu/) repository
-The tag and name of the release should start with the **letter v** and have three numbers separated by a colon. Ex: v2020.11.24  
+The tag and name of the release should start with the **letter v** and have three numbers separated by a colon. Must follow semantic versioning. Ex: v2020.11.24, v2021.3.24
 * **Upload the apio packages** from the releases local folder  
 * Apio should **upgrade** to the new version with the **install command**:
 ```
