@@ -10,11 +10,11 @@ export LC_ALL=C
 # Releases are downloadedt from: https://github.com/open-tool-forge/fpga-toolchain
 
 # -- dfu apio package version
-VERSION=2020.11.24
+# used for fpga-toolchain version as well
+VERSION=2021.03.16
 
 # -- fpga-toolchain version to download
-# -- nightly-20201124
-SRC_VER="nightly-20201124"
+SRC_VER="nightly-"$(echo $VERSION | sed 's/\.//g')
 
 # -- Target architectures
 ARCH=$1
@@ -27,8 +27,7 @@ NAME=toolchain-dfu
 SRC_NAME="fpga-toolchain-"$ARCH-$SRC_VER
 
 # -- Source URL
-SRC_URL="https://github.com/open-tool-forge/fpga-toolchain/releases/download/nightly-20201124"
-
+SRC_URL="https://github.com/YosysHQ/fpga-toolchain/releases/download/$SRC_VER"
 
 # -- Store current dir
 WORK_DIR=$PWD
@@ -129,11 +128,13 @@ fi
 if [ "$ARCH" == "windows_amd64" ]; then
   unzip $SRC_NAME
 else
-  tar vzxf $SRC_NAME
+  tar -vzxf $SRC_NAME
 fi
 
 # -- Move the dfu-util to the package bin folder
-mv fpga-toolchain/bin/dfu-util$EXE $PACKAGE_DIR/$NAME/bin
+cp fpga-toolchain/bin/dfu-util$EXE $PACKAGE_DIR/$NAME/bin
+cp fpga-toolchain/bin/dfu-prefix$EXE $PACKAGE_DIR/$NAME/bin
+cp fpga-toolchain/bin/dfu-suffix$EXE $PACKAGE_DIR/$NAME/bin
 
 # -- Create package script
 
